@@ -1,10 +1,13 @@
 package com.projeto.workshop.demo.entities;
 
 import com.projeto.workshop.demo.dto.AuthorDTO;
+import com.projeto.workshop.demo.dto.CommentDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Document
 public class Post {
@@ -14,6 +17,8 @@ public class Post {
     private String title;
     private String body;
     private AuthorDTO Author;
+
+    private List<CommentDTO> comments = new ArrayList<>();
 
     public Post() {
     }
@@ -58,6 +63,22 @@ public class Post {
         this.body = body;
     }
 
+    public AuthorDTO getAuthor() {
+        return Author;
+    }
+
+    public void setAuthor(AuthorDTO author) {
+        Author = author;
+    }
+
+    public List<CommentDTO> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentDTO> comments) {
+        this.comments = comments;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -78,11 +99,5 @@ public class Post {
         return result;
     }
 
-    public AuthorDTO getAuthor() {
-        return Author;
-    }
 
-    public void setAuthor(AuthorDTO author) {
-        Author = author;
-    }
 }
