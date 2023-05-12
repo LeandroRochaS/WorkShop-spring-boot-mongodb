@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 
 import com.projeto.workshop.demo.dto.UserDTO;
+import com.projeto.workshop.demo.entities.Post;
 import com.projeto.workshop.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -55,6 +56,12 @@ public class UserResource {
 		obj.setId(id);
 		obj = service.update(Optional.of(obj));
 		return ResponseEntity.noContent().build();
+	}
+
+	@GetMapping(value = "/{id}/posts")
+	public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(obj.getPosts());
 	}
 
 }
