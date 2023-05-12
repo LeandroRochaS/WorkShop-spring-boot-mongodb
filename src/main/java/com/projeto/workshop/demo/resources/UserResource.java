@@ -2,6 +2,7 @@ package com.projeto.workshop.demo.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -45,6 +46,14 @@ public class UserResource {
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable String id){
 		service.delete(id);
+		return ResponseEntity.noContent().build();
+	}
+
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<Void> update(@RequestBody UserDTO objDto, @PathVariable String id){
+		User obj = service.fromDTO(objDto);
+		obj.setId(id);
+		obj = service.update(Optional.of(obj));
 		return ResponseEntity.noContent().build();
 	}
 
