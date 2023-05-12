@@ -1,9 +1,11 @@
 package com.projeto.workshop.demo.entities;
 
+import com.projeto.workshop.demo.dto.AuthorDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
+
 @Document
 public class Post {
     @Id
@@ -11,11 +13,12 @@ public class Post {
     private Date date;
     private String title;
     private String body;
-    private  User Author;
+    private AuthorDTO Author;
 
-    public Post(){}
+    public Post() {
+    }
 
-    public Post(String id, Date date, String title, String body, User Author) {
+    public Post(String id, Date date, String title, String body, AuthorDTO Author) {
         this.id = id;
         this.date = date;
         this.title = title;
@@ -75,11 +78,11 @@ public class Post {
         return result;
     }
 
-    public User getAuthor() {
+    public AuthorDTO getAuthor() {
         return Author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(AuthorDTO author) {
         Author = author;
     }
 }

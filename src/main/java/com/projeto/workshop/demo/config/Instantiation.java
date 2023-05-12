@@ -1,5 +1,6 @@
 package com.projeto.workshop.demo.config;
 
+import com.projeto.workshop.demo.dto.AuthorDTO;
 import com.projeto.workshop.demo.entities.Post;
 import com.projeto.workshop.demo.entities.User;
 import com.projeto.workshop.demo.repositories.PostRepository;
@@ -20,6 +21,7 @@ public class Instantiation implements CommandLineRunner {
 
     @Autowired
     private PostRepository postRepository;
+
     @Override
     public void run(String... args) throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -32,10 +34,14 @@ public class Instantiation implements CommandLineRunner {
         User alex = new User(null, "Alex Green", "alex@gmail.com");
         User bob = new User(null, "Bob Grey", "bob@gmail.com");
 
-        Post post1 = new Post(null, sdf.parse("21/03/2018"), "Partiu Viajem", "Vou viajar para São Paulo, abraços !", maria);
-        Post post2 = new Post(null, sdf.parse("30/03/2018"), "Bom dia", "Acordei feliz hoje!", maria);
-
         userRepository.saveAll(Arrays.asList(maria, alex, bob));
+
+        Post post1 = new Post(null, sdf.parse("21/03/2018"), "Partiu Viajem", "Vou viajar para São Paulo, abraços !", new AuthorDTO(maria));
+        Post post2 = new Post(null, sdf.parse("30/03/2018"), "Bom dia", "Acordei feliz hoje!", new AuthorDTO(maria));
+
         postRepository.saveAll(Arrays.asList(post1, post2));
+
+        maria.getPosts().addAll(Arrays.asList(post1, post2));
+        userRepository.save(maria);
     }
 }
